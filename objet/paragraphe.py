@@ -1,3 +1,6 @@
+class MultiplicationError(Exception):
+    '''multiplication par un entier supérieur à 2 interdite'''
+
 class Paragraphe(str):
 
     '''
@@ -36,7 +39,7 @@ class Paragraphe(str):
         if type(other) != int:
             raise TypeError
         if other >= 3:
-            raise ValueError('multiplication par %d interdite' %other)
+            raise MultiplicationError('multiplication par %d interdite' %other)
         return str.__mul__(self, other)
 
 if __name__ == '__main__':
