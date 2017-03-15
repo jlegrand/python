@@ -27,29 +27,29 @@ class Personne:
     def __eq__(self, other):
         return self.nom == other.nom and self.prenom == other.prenom and self.age == other.age
 
-    def get_age(self):
+    @property
+    def age(self):
+        '''doc : Age de Personne'''
         aujourdhui = date.today()
-        anniversaries = self.naissance.replace(year=aujourdhui.year)
+        try:
+            anniversaries = self.naissance.replace(year=aujourdhui.year)
+        except:
+            anniversaries = self.naissance.replace(year=aujourdhui.year, day=28)
+
         age = aujourdhui.year - self.naissance.year  #
         if anniversaries > aujourdhui:
             age -= 1
         return age
 
-    # création d'un attribut property
-    age = property(get_age, doc='doc : Age de Personne')
-
 
 if __name__ == '__main__':
 
     moi = Personne('Legrand', 'Julien', 8, 12, 1980)
+    lui = Personne('Bissex', 'Tile', 29, 2, 1980)
 
-    print('repr : ', repr(moi))
-    print('str : ', str(moi))
+    print(lui)
 
-    # repr
-    clone = eval(repr(moi))
-    print(eval(repr(clone)))
-    print(clone)
+
 
 
 
