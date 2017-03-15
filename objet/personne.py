@@ -39,6 +39,19 @@ class Personne:
     age = property(get_age, doc='doc : Age de Personne')
 
 
+if __name__ == '__main__':
+
+    moi = Personne('Legrand', 'Julien', 8, 12, 1980)
+
+    print('repr : ', repr(moi))
+    print('str : ', str(moi))
+
+    # repr
+    clone = eval(repr(moi))
+    print(eval(repr(clone)))
+    print(clone)
+
+
 
 
 
