@@ -33,4 +33,6 @@ print(text1.iscap())
 print(text1.cap().iscap())
 print(text1 + text2)
 
+# connaitre l'heritage
+print(type.mro(Paragraphe))
 
