@@ -1,5 +1,8 @@
 class Paragraphe(str):
 
+    '''
+    doc de la classe Paragraphe
+    '''
 
     # def split(self, *args):
     #     liste = list(self)
@@ -13,6 +16,10 @@ class Paragraphe(str):
     #     return phrases, sep
 
     def cap(self):
+        '''
+        doc méthode cap
+        :return: le paragraphe capitalized splitté selon '.'
+        '''
         if '.' not in self:
             return Paragraphe(self.strip().capitalize().rjust(len(self)))
         else:
@@ -33,6 +40,6 @@ print(text1.iscap())
 print(text1.cap().iscap())
 print(text1 + text2)
 
-# connaitre l'heritage
-print(type.mro(Paragraphe))
+print(Paragraphe.__doc__)
+print(Paragraphe.cap.__doc__)
 
