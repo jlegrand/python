@@ -32,14 +32,27 @@ class Paragraphe(str):
     def __add__(self, other):
         return str.__add__(self, other.cap())
 
-text1 = Paragraphe('je sUis un texte. je suis unE phrase.')
-text2 = Paragraphe('je suis Le TEXTE 2.')
-print(text1)
-print(text1.cap())
-print(text1.iscap())
-print(text1.cap().iscap())
-print(text1 + text2)
+    def __mul__(self, other):
+        if type(other) != int:
+            raise TypeError
+        if other >= 3:
+            raise ValueError('multiplication par %d interdite' %other)
+        return str.__mul__(self, other)
 
-print(Paragraphe.__doc__)
-print(Paragraphe.cap.__doc__)
+if __name__ == '__main__':
 
+    # text1 = Paragraphe('je sUis un texte. je suis unE phrase.')
+    # text2 = Paragraphe('je suis Le TEXTE 2.')
+    # print(text1)
+    # print(text1.cap())
+    # print(text1.iscap())
+    # print(text1.cap().iscap())
+    # print(text1 + text2)
+    #
+    # print(Paragraphe.__doc__)
+    # print(Paragraphe.cap.__doc__)
+
+    para1 = Paragraphe('    ceci est ? UNe chaine.')
+    print(para1 * 2)
+    print(para1 * 3)
+    print(para1 * 't')
