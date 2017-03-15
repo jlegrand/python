@@ -14,3 +14,9 @@ else:
     print('else')
 finally:
     print('finally')
+
+
+###
+var = 5
+
+assert var == 8
