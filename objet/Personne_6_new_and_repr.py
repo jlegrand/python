@@ -17,7 +17,8 @@ class Personne:
 
     # Représentation de l'objet
     def __repr__(self):
-        return "%s %s" % (self.prenom, self.nom)
+        self.annee, self.mois, self.jour = str(self.naissance).split('-')
+        return "Personne(%r, %r, %i, %i, %i)" % (self.nom, self.prenom, int(self.jour), int(self.mois), int(self.annee))
 
     def __contains__(self, item):
         return item in self.nom or item in self.prenom
@@ -43,5 +44,12 @@ class Personne:
 
 # new
 moi = Personne('Legrand', 'Julien', 8, 12, 1980)
-toi = Personne('Gilson', 'Melanie', 27, 5, 1980)
+
+print('repr : ', repr(moi))
+print('str : ', str(moi))
+
+# repr
+clone = eval(repr(moi))
+print(eval(repr(clone)))
+print(clone)
 
