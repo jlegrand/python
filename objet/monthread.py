@@ -1,5 +1,6 @@
-from threading import Thread
+from threading import Thread, Lock
 
+verrou = Lock()
 
 class MonThread(Thread):
 
@@ -9,7 +10,9 @@ class MonThread(Thread):
 
     def run(self):
         for i in range(5):
+            verrou.acquire()
             print(self.nom, i)
+            verrou.release()
 
 if __name__=='__main__':
     t1=MonThread('T1')
