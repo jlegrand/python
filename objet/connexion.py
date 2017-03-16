@@ -29,7 +29,7 @@ class Connexion:
     def count(self, nom, prenom):
         query = "SELECT count(*) FROM personne where nom='%s' and prenom = '%s'" % (nom, prenom)
         self.execute_query(query)
-        return self.curseur.fetchone()
+        return self.curseur.fetchone()[0]
 
     def update(self, nom, prenom, id):
         query = "UPDATE personne SET nom='%s' , prenom = '%s' WHERE id = '%d'" % (nom, prenom, id)
@@ -39,29 +39,40 @@ class Connexion:
         query = "DELETE from personne where id='%s'" % id
         self.execute_query(query)
 
-    def disconnect(self):
+    def delete(self, nom, prenom):
+        query = "DELETE from personne where nom = '%s' and prenom = '%s'" % (nom, prenom)
+        self.execute_query(query)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
         self.connexion.close()
+        if exc_type:
+            print(exc_val)
+
 
 
 if __name__ == '__main__':
 
     # connection à la base
-    sqlite3 = Connexion('example.db')
+    with Connexion('example.db') as sqlite3:
 
-    # ajout d'une personne
-    L = ['Legrand', 'Julien']
-    sqlite3.insert(L)
+        # ajout d'une personne
+        L = ['Legrand', 'Julien']
+        sqlite3.insert(L)
 
-    # compte des personnes
-    print(sqlite3.count('Legrand', 'Julien'))
+        # select
+        print(sqlite3.select())
 
-    # Mis à jour de Julien Legrand
-    sqlite3.update('Legrand', 'Julien', 0)
+        # compte des personnes
+        print(sqlite3.count('Legrand', 'Julien'))
 
-    # suppression de la personne
-    sqlite3.delete(0)
-    print(sqlite3.count('Legrand', 'Julien'))
+        # Mis à jour de Julien Legrand
+        sqlite3.update('Legrand', 'Julien', 0)
 
-    # deconnection
-    sqlite3.disconnect()
+        # suppression de la personne
+        sqlite3.delete('Legrand', 'Julien')
+        print(sqlite3.count('Legrand', 'Julien'))
+
 
